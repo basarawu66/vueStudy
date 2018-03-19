@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GDNS-front</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<body class="wrapper viewport">
+    <div id="app">
+        input message
+        <input type="text" v-model="msg" size="100" />
+        <div>Message: {{ msg }} </div>
+        <div v-once> v-once Message: {{ msg }} </div>
+        <div>v-html Message:
+            <span v-html="msg"></span>
+        </div>
+        <div>v-bind id:
+            <span v-bind:id="id"> id="testId" </span>
+        </div>
+        <div>v-bind disabled:
+            <button :disabled="buttonDisabled">button</button>
+        </div>
+        <div>using javascript expressions:
+            <br/> number: {{ number }}
+            <br/>
+            <span v-text="'{{ number + 1}}'"></span> : {{ number + 1 }}
+            <br/> ok: {{ ok }}</br>
+            <span v-text="'{{ ok ? \'Yes\':\'No\' }}'"></span> : {{ ok ? 'Yes':'No' }}</br>
+            <span v-text="'{{ msg.split(\'\').reverse().join(\'\') }}'"></span> : {{ msg.split('').reverse().join('') }}</br>
+            <span v-bind:id="'list-' + id"> id="list-testId"</span><br/>
+            <!-- You should not attempt to access user defined globals in template expressions. -->
+            <!--  {{ number++ }} -->
+
+        </div>
+        <div v-if="true">v-if="true": true</div>
+        <div v-if="false">v-if="true": true</div>
+        <div v-show="true">v-show="true": true</div>
+        <div v-show="false">v-show="false": true</div>
+        <div>v-bind:href :<a v-bind:href="url"> {{ url }}  </a></div>
+        <div>v-on:click :<button v-on:click='alert'>alert</button></div>
+        <div>v-on:click.prevent :<a v-bind:href="url" v-on:click.prevent> {{ url }} </a></div>
+        <div>shorthand v-bind:href => :href : <a :href="url">{{ url }}</a></div>
+        <div>shortand v-on:click => @click :<button @click='alert'>alert</button></div>
+    </div>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                msg: 'this is message',
+                id: 'testId',
+                buttonDisabled: true,
+                number: 1,
+                ok: true,
+                url: 'https://google.com',
+            },
+            methods:{
+                alert(){
+                    window.alert('alert');
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

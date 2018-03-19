@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GDNS-front</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<body class="wrapper viewport">
+    <div id="app">
+        <button @click="currentComponent = (currentComponent === 'componentA'?'componentB':'componentA')">change component</button>
+        <component :is="currentComponent" />
+    </div>
+
+    <script>
+        
+        function debugLog(msg, instance) {
+            const log =
+                `[lifecycle] => ${msg},
+                timestamp:${(new Date()).getTime()},
+                data init: ${typeof instance.val !== 'undefined'},
+                method init:${typeof instance.test !== 'undefined'},
+                dom init: ${typeof instance.$el !== 'undefined'}`;
+            console.log(log);
+        }
+
+        const componentA = {
+            template: `<div>componentA</div>`,
+            data() {
+                return {
+                    val: '',
+                };
+            },
+            methods: {
+                test() {}
+            },
+            beforeCreate() {
+                debugLog('[componentA]=>beforeCreate', this);
+            },
+            created() {
+                debugLog('[componentA]=>created', this);
+            },
+            beforeMount() {
+                debugLog('[componentA]=>beforeMount', this);
+            },
+            mounted() {
+                debugLog('[componentA]=>mounted', this);
+            },
+            beforeUpdate() {
+                debugLog('[componentA]=>beforeUpdate', this);
+            },
+            updated() {
+                debugLog('[componentA]=>updated', this);
+            },
+            beforeDestroy() {
+                debugLog('[componentA]=>beforeDestroy', this);
+            },
+            destroyed() {
+                debugLog('[componentA]=>destroyed', this);
+            }
+        };
+
+        const componentB = {
+            template: `<div>componentB<br/>
+                    please input:<input type='text' v-model='val'/><br/>
+                    your input:{{val}}</div>`,
+            data() {
+                return {
+                    val: ''
+                };
+            },
+            methods: {
+                test() {}
+            },
+            beforeCreate() {
+                // this.writeLog('beforeCreate');
+                debugLog('[componentB]=>beforeCreate', this);
+            },
+            created() {
+                debugLog('[componentB]=>created', this);
+            },
+            beforeMount() {
+                debugLog('[componentB]=>beforeMount', this);
+            },
+            mounted() {
+                debugLog('[componentB]=>mounted', this);
+            },
+            beforeUpdate() {
+                debugLog('[componentB]=>beforeUpdate', this);
+            },
+            updated() {
+                debugLog('[componentB]=>updated', this);
+            },
+            beforeDestroy() {
+                debugLog('[componentB]=>beforeDestroy', this);
+            },
+            destroyed() {
+                debugLog('[componentB]=>destroyed', this);
+            }
+        };
+        const app = new Vue({
+            el: '#app',
+            data: {
+                currentComponent: 'componentA',
+            },
+            components: {
+                componentA,
+                componentB,
+            }
+        })
+    </script>
+</body>
+
+</html>
