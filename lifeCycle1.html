@@ -5,33 +5,28 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>lifyCycle</title>
+    <title>lifyCycle deep</title>
 </head>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
 <body class="wrapper viewport">
     <div id="app">
-
-        <button @click="currentComponent = (currentComponent === 'componentA'?'componentB':'componentA')">change component</button>
-        <component :is="currentComponent" />
+        <component-a></component-a>
+        <component-b>
+            <component-c></component-c>
+            <component-d></component-d>
+        </component-b>
     </div>
 
     <script>
         const debugLog = (msg, instance) => {
             const log =
-                `[lifecycle] => ${msg},
-                timestamp:${(new Date()).getTime()},
-                data init: ${typeof instance.val !== 'undefined'},
-                method init:${typeof instance.test !== 'undefined'},
-                dom init: ${typeof instance.$el !== 'undefined'}`;
+                `[lifecycle] => ${msg}, timestamp:${(new Date()).getTime()}`;
             console.log(log);
         }
 
         const createComponent = name => ({
-            template: `<div>${name}<br/>
-                input:<input type="text" v-model='val'/>
-                bind value: {{ val }}<br/>
-            </div>`,
+            template: `<div>${name}<slot></slot></div>`,
             data() {
                 return {
                     val: '',
@@ -69,22 +64,20 @@
 
         const componentA = createComponent('componentA');
         const componentB = createComponent('componentB');
+        const componentC = createComponent('componentC');
+        const componentD = createComponent('componentD');
+        const app = createComponent('app');
 
-        const appSetting = createComponent('app');
-
-        appSetting.el = '#app';
-        appSetting.data = {
-            currentComponent: 'componentA',
-            val: 'test',
-        };
-        delete appSetting.template;
-        appSetting.components = {
+        app.el = '#app';
+        delete app.template;
+        app.components = {
             componentA,
             componentB,
+            componentC,
+            componentD,
         }
 
-        const app = new Vue(appSetting);
-
+        new Vue(app);
         // app.$mount('#app');
     </script>
 </body>
