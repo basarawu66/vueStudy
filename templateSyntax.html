@@ -33,7 +33,7 @@
             <span v-text="'{{ msg.split(\'\').reverse().join(\'\') }}'"></span> : {{ msg.split('').reverse().join('') }}</br>
             <span v-bind:id="'list-' + id"> id="list-testId"</span><br/>
             <!-- You should not attempt to access user defined globals in template expressions. -->
-            <!--  {{ number++ }} -->
+             <!-- {{ number++ }} -->
 
         </div>
         <div v-if="true">v-if="true": true</div>
@@ -52,7 +52,7 @@
             data: {
                 msg: 'this is message',
                 id: 'testId',
-                buttonDisabled: true,
+                buttonDisabled: null,
                 number: 1,
                 ok: true,
                 url: 'https://google.com',
